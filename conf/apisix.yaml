@@ -1,34 +1,10 @@
 routes:
   - id: 1
-    uri:  /userss/
-    methods:
-      - GET
-    upstream:
-      type: roundrobin
-      nodes:
-        "jsonplaceholder.typicode.com:443": 1
-    plugins:
-      response-rewrite:
-        body: "Merhaba"
-        headers:
-          Content-Type: "text/plain"
-  
-  - id: 2
     uri: /users/*
     methods:
       - GET
-      - POST
     upstream:
       type: roundrobin
       nodes:
         "jsonplaceholder.typicode.com:443": 1
       scheme: https
-      pass_host: node
-
-upstreams:
-  - id: 1
-    type: roundrobin
-    nodes:
-      "jsonplaceholder.typicode.com:443": 1
-
-#END
