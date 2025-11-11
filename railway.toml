@@ -1,0 +1,22 @@
+[build]
+builder = "DOCKERFILE"
+dockerfilePath = "Dockerfile"
+
+[deploy]
+startCommand = "/usr/local/apisix/apisix docker-start"
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 10
+```
+
+### 3. `.dockerignore` Oluşturun
+
+Gereksiz dosyaların Docker image'ına kopyalanmasını önlemek için:
+```
+.git
+.gitignore
+docker-compose.yml
+README.md
+logs/
+*.log
+.DS_Store
+oold/
