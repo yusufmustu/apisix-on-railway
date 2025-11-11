@@ -1,5 +1,5 @@
 #FROM apache/apisix:3.12.0-debian 
-FROM apache/apisix:dev-arm64
+FROM apache/apisix:dev-amd64
 
 # kopyala
 COPY conf/apisix.yaml /usr/local/apisix/conf/apisix.yaml
