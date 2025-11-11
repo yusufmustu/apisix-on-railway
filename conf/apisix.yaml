@@ -14,7 +14,7 @@ routes:
           Content-Type: "text/plain"
   
   - id: 2
-    uri: /api/users/*
+    uri: /users/*
     methods:
       - GET
       - POST
