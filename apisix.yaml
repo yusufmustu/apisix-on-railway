@@ -1,20 +1,20 @@
-# apisix-standalone-railway/config.yaml
+# apisix-standalone-railway/apisix.yaml
 
-# Dikkat: Bu dosyada etcd ile ilgili HİÇBİR ayar yok!
+routes:
+  # Örnek 1: /test adresine gelen istekleri httpbin.org'a yönlendir.
+  - id: "httpbin-test-route"    # Route için açıklayıcı bir ID
+    uri: /test
+    upstream:
+      type: roundrobin
+      nodes:
+        "httpbin.org:80": 1
 
-apisix:
-  node_listen: 9080             # APISIX'in dinleyeceği port
-  enable_admin: false           # Admin API'yi güvenlik için kapalı tutuyoruz
-
-plugins:
-  - "prometheus"
-  - "limit-req"
-  - "response-rewrite"          # Örnek için bu plugini ekledim
-
-# BU BÖLÜM EN ÖNEMLİSİ
-# APISIX'e bağımsız modda çalışmasını ve yapılandırmayı
-# yerel bir YAML dosyasından okumasını söylüyoruz.
-deployment:
-  role: data_plane
-  role_data_plane:
-    config_provider: yaml
+  # Örnek 2: /hello adresine gelen isteklere doğrudan statik bir cevap ver.
+  # Bu route için bir upstream (hedef servis) gerekmez.
+  - id: "static-hello-route"
+    uri: /hello
+    plugins:
+      response-rewrite:
+        body: "Hello from APISIX on Railway!"
+        headers:
+          content-type: "text/plain"
