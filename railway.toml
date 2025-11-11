@@ -6,3 +6,7 @@ dockerfilePath = "Dockerfile"
 startCommand = "/usr/local/apisix/apisix docker-start"
 restartPolicyType = "ON_FAILURE"
 restartPolicyMaxRetries = 10
+
+# Railway'in health check yapmasını sağla
+healthcheckPath = "/apisix/admin/routes"
+healthcheckTimeout = 300
