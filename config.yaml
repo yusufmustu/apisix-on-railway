@@ -1,17 +1,24 @@
 apisix:
-  node_listen: 9080              # APISIX dinleme portu
+  node_listen: 9080
   enable_admin: true
   enable_admin_cors: true
   admin_key:
     - name: "admin"
-      key: edd1c9f034335f136f87ad84b625c8f1
+      key: edd1c9f034335f136f87ad84b625c8f1  # ÜRETİMDE MUTLAKA DEĞİŞTİRİN!
       role: admin
+  
+  # Railway için önemli
+  allow_admin:
+    - 0.0.0.0/0  # Tüm IP'lerden admin erişimi (dikkatli kullanın)
 
 deployment:
   role: data_plane
   role_data_plane:
     config_provider: yaml
 
+nginx_config:
+  error_log_level: "warn"
+  
 plugin_attr:
   prometheus:
     export_addr:
