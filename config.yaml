@@ -1,0 +1,26 @@
+# apisix-on-railway/config.yaml
+
+apisix:
+  node_listen: 9080             # APISIX'in dinleyeceği port
+  enable_admin: false           # Admin API'yi güvenlik için kapalı tutabiliriz, isterseniz true yapın
+  enable_prometheus: true       # Metrikleri izlemek için
+
+etcd:
+  host:
+    # Burası çok önemli! 'etcd' ismi, Railway'de oluşturacağımız
+    # etcd servisinin adına karşılık gelecek.
+    - "http://etcd:2379"
+  prefix: "/apisix"
+  timeout: 30
+
+plugins:                        # İhtiyacınız olan plugin'leri ekleyebilirsiniz
+  - "key-auth"
+  - "limit-conn"
+  - "limit-req"
+  - "prometheus"
+
+# Stand-alone modunu etkinleştir. Bu sayede rotalarımızı apisix.yaml dosyasından okuyacak.
+deployment:
+  role: data_plane
+  role_data_plane:
+    config_provider: yaml
