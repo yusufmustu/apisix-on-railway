@@ -1,12 +1,12 @@
 routes:
   - id: 1
-    uri: /api/hello
+    uri:  /userss/
     methods:
       - GET
     upstream:
       type: roundrobin
       nodes:
-        "httpbin.org:80": 1
+        "jsonplaceholder.typicode.com:443": 1
     plugins:
       response-rewrite:
         body: "Merhaba"
@@ -14,7 +14,7 @@ routes:
           Content-Type: "text/plain"
   
   - id: 2
-    uri: /api/users/*
+    uri: /users/*
     methods:
       - GET
       - POST
@@ -29,6 +29,6 @@ upstreams:
   - id: 1
     type: roundrobin
     nodes:
-      "httpbin.org:80": 1
+      "jsonplaceholder.typicode.com:443": 1
 
 #END
