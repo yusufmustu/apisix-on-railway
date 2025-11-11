@@ -1,20 +1,19 @@
-# apisix-standalone-railway/config.yaml
-
-# Dikkat: Bu dosyada etcd ile ilgili HİÇBİR ayar yok!
-
 apisix:
-  node_listen: 9080             # APISIX'in dinleyeceği port
-  enable_admin: false           # Admin API'yi güvenlik için kapalı tutuyoruz
+  node_listen: 9080              # APISIX dinleme portu
+  enable_admin: true
+  enable_admin_cors: true
+  admin_key:
+    - name: "admin"
+      key: edd1c9f034335f136f87ad84b625c8f1
+      role: admin
 
-plugins:
-  - "prometheus"
-  - "limit-req"
-  - "response-rewrite"          # Örnek için bu plugini ekledim
-
-# BU BÖLÜM EN ÖNEMLİSİ
-# APISIX'e bağımsız modda çalışmasını ve yapılandırmayı
-# yerel bir YAML dosyasından okumasını söylüyoruz.
 deployment:
   role: data_plane
   role_data_plane:
     config_provider: yaml
+
+plugin_attr:
+  prometheus:
+    export_addr:
+      ip: "0.0.0.0"
+      port: 9091
