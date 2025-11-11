@@ -9,7 +9,7 @@ routes:
         "httpbin.org:80": 1
     plugins:
       response-rewrite:
-        body: "Hello from APISIX!"
+        body: "Merhaba"
         headers:
           Content-Type: "text/plain"
   
