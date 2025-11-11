@@ -9,3 +9,9 @@ routes:
         "jsonplaceholder.typicode.com:443": 1
       scheme: https
       pass_host: node
+
+upstreams:
+  - id: 1
+    type: roundrobin
+    nodes:
+      "jsonplaceholder.typicode.com:443": 1
