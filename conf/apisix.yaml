@@ -1,0 +1,14 @@
+deployment:
+  role: data_plane
+  role_data_plane:
+    config_provider: yaml
+
+routes:
+  - uri: "/httpbin/*"
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"]
+    upstream:
+      nodes:
+        "httpbin.org:80": 1
+      type: roundrobin
+
+#END
