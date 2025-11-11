@@ -1,9 +1,8 @@
 # Resmi Apache APISIX imajını temel al
 FROM apache/apisix:3.9.1-debian
 
-# Özel yapılandırma dosyamızı kopyala
+# APISIX'in ana yapılandırma dosyasını kopyala
 COPY config.yaml /usr/local/apisix/conf/config.yaml
 
-# APISIX'in rotaları ilk başlangıçta yüklemesi için
-# stand-alone (bağımsız) modda kullanılacak apisix.yaml dosyasını kopyala
+# APISIX'in tüm route, upstream vb. ayarlarını okuyacağı YAML dosyasını kopyala
 COPY apisix.yaml /usr/local/apisix/conf/apisix.yaml
