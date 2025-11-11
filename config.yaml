@@ -1,10 +1,11 @@
 apisix:
   node_listen:
-    - 9080
+    - port: 9080
+      enable_http2: false
   enable_admin: true
   admin_key:
     - name: "admin"
-      key: YOUR_ADMIN_KEY_HERE
+      key: edd1c9f034335f136f87ad84b625c8f1
       role: admin
 
 deployment:
@@ -13,8 +14,9 @@ deployment:
     config_provider: yaml
 
 nginx_config:
-  error_log: "/usr/local/apisix/logs/error.log"
+  error_log: "stderr"
   error_log_level: "warn"
+  access_log: "logs/access.log"
   
 plugin_attr:
   prometheus:
