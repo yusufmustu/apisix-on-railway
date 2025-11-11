@@ -1,18 +1,25 @@
 FROM apache/apisix:3.7.0-debian
 
+USER root
+
 # Yapılandırma dosyalarını kopyala
 COPY config.yaml /usr/local/apisix/conf/config.yaml
 COPY apisix.yaml /usr/local/apisix/conf/apisix.yaml
 
-# Start script'i kopyala ve executable yap
-COPY start.sh /start.sh
-RUN chmod +x /start.sh
+# Gerekli dizinleri oluştur
+RUN mkdir -p /usr/local/apisix/logs && \
+    mkdir -p /var/run/apisix && \
+    chown -R apisix:apisix /usr/local/apisix/logs && \
+    chown -R apisix:apisix /var/run/apisix && \
+    chown -R apisix:apisix /usr/local/apisix/conf
 
-# Log dizinini oluştur
-RUN mkdir -p /usr/local/apisix/logs
+# APISIX'i initialize et
+RUN /usr/local/apisix/apisix init && \
+    /usr/local/apisix/apisix init_etcd
 
-# APISIX portlarını expose et
+USER apisix
+
 EXPOSE 9080 9443 9091
 
-# Start script ile başlat
-CMD ["/start.sh"]
+# OpenResty'yi foreground'da başlat
+CMD ["/usr/local/openresty/bin/openresty", "-g", "daemon off;", "-p", "/usr/local/apisix", "-c", "/usr/local/apisix/conf/nginx.conf"]
