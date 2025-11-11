@@ -1,0 +1,9 @@
+# apisix-on-railway/apisix.yaml
+
+routes:
+  - id: 1
+    uri: /get
+    upstream:
+      type: roundrobin
+      nodes:
+        "httpbin.org:80": 1
