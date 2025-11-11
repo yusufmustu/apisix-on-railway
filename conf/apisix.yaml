@@ -8,3 +8,4 @@ routes:
       nodes:
         "jsonplaceholder.typicode.com:443": 1
       scheme: https
+      pass_host: node
