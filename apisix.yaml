@@ -1,6 +1,7 @@
 routes:
   - id: 1
     uri: /api/hello
+    name: "Hello API"
     methods:
       - GET
     upstream:
@@ -8,13 +9,14 @@ routes:
       nodes:
         "httpbin.org:80": 1
     plugins:
+      proxy-rewrite:
+        uri: "/get"
       response-rewrite:
-        body: "Hello from APISIX!"
-        headers:
-          Content-Type: "text/plain"
-  
+        body: '{"message": "Hello from APISIX on Railway!", "original_response": $body}'
+
   - id: 2
     uri: /api/users/*
+    name: "User API Example"
     methods:
       - GET
       - POST
@@ -23,12 +25,10 @@ routes:
       nodes:
         "jsonplaceholder.typicode.com:443": 1
       scheme: https
-      pass_host: node
+      pass_host: pass
 
-upstreams:
-  - id: 1
-    type: roundrobin
-    nodes:
-      "httpbin.org:80": 1
+upstreams: []
+
+services: []
 
 #END

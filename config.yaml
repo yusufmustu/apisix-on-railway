@@ -1,15 +1,11 @@
 apisix:
-  node_listen: 9080
+  node_listen:
+    - 9080
   enable_admin: true
-  enable_admin_cors: true
   admin_key:
     - name: "admin"
-      key: edd1c9f034335f136f87ad84b625c8f1  # ÜRETİMDE MUTLAKA DEĞİŞTİRİN!
+      key: YOUR_ADMIN_KEY_HERE
       role: admin
-  
-  # Railway için önemli
-  allow_admin:
-    - 0.0.0.0/0  # Tüm IP'lerden admin erişimi (dikkatli kullanın)
 
 deployment:
   role: data_plane
@@ -17,6 +13,7 @@ deployment:
     config_provider: yaml
 
 nginx_config:
+  error_log: "/usr/local/apisix/logs/error.log"
   error_log_level: "warn"
   
 plugin_attr:
