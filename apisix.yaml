@@ -1,9 +1,20 @@
-# apisix-on-railway/apisix.yaml
+# apisix-standalone-railway/config.yaml
 
-routes:
-  - id: 1
-    uri: /get
-    upstream:
-      type: roundrobin
-      nodes:
-        "httpbin.org:80": 1
+# Dikkat: Bu dosyada etcd ile ilgili HİÇBİR ayar yok!
+
+apisix:
+  node_listen: 9080             # APISIX'in dinleyeceği port
+  enable_admin: false           # Admin API'yi güvenlik için kapalı tutuyoruz
+
+plugins:
+  - "prometheus"
+  - "limit-req"
+  - "response-rewrite"          # Örnek için bu plugini ekledim
+
+# BU BÖLÜM EN ÖNEMLİSİ
+# APISIX'e bağımsız modda çalışmasını ve yapılandırmayı
+# yerel bir YAML dosyasından okumasını söylüyoruz.
+deployment:
+  role: data_plane
+  role_data_plane:
+    config_provider: yaml
